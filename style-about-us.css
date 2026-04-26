@@ -1,0 +1,143 @@
+﻿/* Base styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+    color: #111;
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    display: block;
+    border-radius: 8px;
+}
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.navbar img {
+    height: 50px;
+}
+
+.nav-links {
+    margin-top: 10px;
+}
+
+    .nav-links a {
+        margin-left: 20px;
+        font-weight: 500;
+        font-size: 16px;
+        color: #111;
+        transition: color 0.3s ease;
+    }
+
+        .nav-links a:hover {
+            color: #2563eb; /* Hover color */
+        }
+
+/* Hero section */
+.hero-image {
+    width: 100%;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 2px, transparent 2px), linear-gradient(135deg, #2563eb, #3b82f6);
+    background-size: 40px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .hero-image h1 {
+        font-size: 40px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 15px 30px;
+        border-radius: 10px;
+        max-width: 90%;
+        text-align: center;
+    }
+
+/* Sections */
+section {
+    margin-bottom: 60px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #002244;
+}
+
+p {
+    font-size: 17px;
+    margin-bottom: 16px;
+}
+
+/* Split content */
+.split-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 16px;
+    flex-wrap: wrap;
+}
+
+    .split-section .text {
+        flex: 1 1 55%;
+        min-width: 300px;
+    }
+
+    .split-section img {
+        width: 400px;
+        max-width: 100%;
+        flex-shrink: 0;
+        margin: 0 auto;
+    }
+
+/* Reverse layout */
+.reverse {
+    flex-direction: row-reverse;
+}
+
+/* Footer */
+.footer {
+    background: #111;
+    color: #eee;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 60px;
+    font-size: 15px;
+}

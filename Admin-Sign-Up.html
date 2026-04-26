@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Sign Up | Next Hire</title>
+    <link rel="stylesheet" href="style-Admin-Sign-Up.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo-nh.png" alt="Logo" />
+            <span>Admin Portal</span>
+        </div>
+        <div class="nav-links">
+            <a href="Main-Page.html" target="_blank">Home</a>
+            <a href="About-Us.html" target="_blank">About Us</a>
+            <a href="Contact.html" target="_blank">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Background and Form -->
+    <!-- Hero Background and Form -->
+    <div class="hero-wrapper">
+        <div class="form-container">
+            <h2>Admin Sign Up</h2>
+            <form id="signupForm" method="POST" action="/api/student/admin/signup">
+                <!-- Account Info -->
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" name="companyName" placeholder="Company Name" required />
+
+                <label for="contactName">Contact Person Name</label>
+                <input type="text" id="contactName" name="contactName" placeholder="Contact Person Name" required />
+
+                <label for="email">Official Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Official Email Address" required />
+
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" required placeholder="Password" minlength="8" />
+                    <span class="eye-icon" onclick="togglePassword('password', this)">👁️</span>
+                </div>
+
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password" minlength="8" />
+                    <span class="eye-icon" onclick="togglePassword('confirmPassword', this)">👁️</span>
+                </div>
+
+                <label for="industry">Industry</label>
+                <select name="industry" id="industry" required>
+                    <option value="">Select Industry</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Education">Education</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="otherIndustry" class="hidden">Please specify your industry</label>
+                <input type="text" name="otherIndustry" id="otherIndustry" class="hidden" placeholder="Please specify your industry" />
+
+                <label for="location">Company Location (City, Country)</label>
+                <input type="text" id="location" name="location" placeholder="Company Location (City, Country)" />
+
+                <label for="description">Brief Company Description</label>
+                <textarea name="description" id="description" placeholder="Brief Company Description" rows="4" required></textarea>
+
+                <label for="logoUrl">Company Logo URL</label>
+                <input type="url" id="logoUrl" name="logoUrl" placeholder="https://example.com/logo.png" />
+
+
+                <!-- Agreement -->
+                <label class="terms-label">
+                    <input type="checkbox" name="terms" required />
+                    I agree to the <a href="#">Terms & Conditions</a>
+                </label>
+
+                <!-- Submit -->
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <p class="form-footer">
+                Already have an account?
+                <a href="Admin-Login.html">Log in</a>
+            </p>
+        </div>
+    </div>
+    
+
+
+    <!-- Show/Hide Other Industry Field -->
+    <script>
+        // Show/Hide "Other Industry" field
+        const industrySelect = document.getElementById('industry');
+        const otherIndustryInput = document.getElementById('otherIndustry');
+
+        industrySelect.addEventListener('change', () => {
+            if (industrySelect.value === 'Other') {
+                otherIndustryInput.classList.remove('hidden');
+                otherIndustryInput.required = true;
+            } else {
+                otherIndustryInput.classList.add('hidden');
+                otherIndustryInput.required = false;
+            }
+        });
+
+        // Toggle password visibility
+        function togglePassword(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "Hide";
+            } else {
+                input.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
+
+        // Form Validation
+        const form = document.getElementById("signupForm");
+
+        form.addEventListener("submit", function (event) {
+            let isValid = true;
+            let messages = [];
+
+            const companyName = document.getElementById("companyName").value.trim();
+            const contactName = document.getElementById("contactName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const industry = document.getElementById("industry").value;
+            const otherIndustry = document.getElementById("otherIndustry").value.trim();
+            const termsChecked = form.querySelector("input[name='terms']").checked;
+
+            // Company Name & Contact Name
+            if (companyName === "" || contactName === "") {
+                isValid = false;
+                messages.push("Company Name and Contact Person are required.");
+            }
+
+            // Email Format
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            if (!email.match(emailPattern)) {
+                isValid = false;
+                messages.push("Please enter a valid email address.");
+            }
+
+            // Password Match
+            if (password !== confirmPassword) {
+                isValid = false;
+                messages.push("Passwords do not match.");
+            }
+
+            // Password regex: Minimum 8 characters, at least one number and one special character
+            const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+
+            if (!passwordPattern.test(password)) {
+                isValid = false;
+                messages.push("Password must be at least 8 characters long and include at least one number and one special character.");
+            }
+
+
+            // Industry
+            if (industry === "") {
+                isValid = false;
+                messages.push("Please select an industry.");
+            }
+
+            // If "Other" is selected, ensure it's filled
+            if (industry === "Other" && otherIndustry === "") {
+                isValid = false;
+                messages.push("Please specify your industry.");
+            }
+
+            // Terms and Conditions
+            if (!termsChecked) {
+                isValid = false;
+                messages.push("You must agree to the Terms & Conditions.");
+            }
+
+            // Show errors or success
+            if (!isValid) {
+                event.preventDefault(); // Stop form submission
+                alert(messages.join("\n"));
+            } else {
+                alert("Form submitted successfully!");
+                // Form will now submit normally
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard - Internship Management</title>
+    <link rel="stylesheet" href="style-Admin-Dashboard.css" />
+</head>
+<body>
+    <!--  the purple text is to be modified by backend, pls edit it accordingly-->
+    <div class="dashboard">
+        <nav class="sidebar">
+            <div class="company-brand">
+                <img src="{{companyLogoUrl}}" alt="Company Logo" style="width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 10px;" />
+                <h2>{{companyName}}</h2>
+            </div>
+            <div class="nav-link active" data-section="profile">👤 Profile</div>
+            <div class="nav-link" data-section="post-internship">📢 Post Internship</div>
+            <div class="nav-link" data-section="applied-students">🧑‍🎓 Applied Students</div>
+            <div class="nav-link" data-section="company-account">⚙️ Account Settings</div>
+        </nav>
+
+        <main class="main-content">
+            <div class="header">
+                <div class="admin-name">Welcome to Admin Dashboard</div>
+                <button class="logout-btn">Logout</button>
+            </div>
+
+            <section id="profile" class="content-section active">
+                <h3>Company Profile Overview</h3>
+                <form>
+                    <label>Company Name</label>
+                    <input type="text" value="{{companyName}}" disabled />
+
+                    <label>Email</label>
+                    <input type="email" value="{{companyEmail}}" disabled />
+
+                    <label>Description</label>
+                    <textarea rows="4" disabled>{{companyDescription}}</textarea>
+                </form>
+            </section>
+
+            <section id="post-internship" class="content-section">
+                <h3>Post Internship Vacancy</h3>
+                <form id="postInternshipForm">
+                    <label>Title</label>
+                    <input type="text" name="title" placeholder="Internship title" />
+
+                    <label>Description</label>
+                    <textarea name="description" rows="5" placeholder="Describe the internship..."></textarea>
+
+                    <label>Location</label>
+                    <input type="text" name="location" placeholder="Location" />
+
+                    <label>Age Requirement</label>
+                    <input type="number" name="age_requirement" placeholder="Minimum age" />
+
+                    <label>Salary</label>
+                    <input type="number" name="salary" placeholder="Monthly salary" />
+
+                    <label>Deadline</label>
+                    <input type="date" name="deadline" />
+
+                    <button class="primary" type="submit">Post Vacancy</button>
+                </form>
+            </section>
+
+            <section id="applied-students" class="content-section">
+                <h3>Applied Students</h3>
+                <input type="text" id="searchApplications" placeholder="Search applications..." />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Internship</th>
+                            <th>Status</th>
+                            <th>Profile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--  this is backend pls fix it accordingly-->
+
+                        <tr>
+                            <td>{{student.name}}</td>
+                            <td>{{student.email}}</td>
+                            <td>{{student.internship_title}}</td>
+                            <td>
+                                <select class="status-select" data-application-id="{{student.application_id}}">
+                                    <option {% if student.status= ='Pending' %}selected{% endif %}>Pending</option>
+                                    <option {% if student.status= ='Accepted' %}selected{% endif %}>Accepted</option>
+                                    <option {% if student.status= ='Rejected' %}selected{% endif %}>Rejected</option>
+                                </select>
+                            </td>
+                            <td><span class="view-profile" onclick="alert('Show profile for {{student.name}}')">View</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="company-account" class="content-section">
+                <h3>Company Account Management</h3>
+                <form id="companyAccountForm">
+                    <label>Company Name</label>
+                    <input type="text" name="companyName" value="{{companyName}}" />
+
+                    <label>Contact Person Name</label>
+                    <input type="text" name="contactPerson" value="{{contactPerson}}" />
+
+                    <label>Email</label>
+                    <input type="email" name="companyEmail" value="{{companyEmail}}" />
+
+                    <label>Industry</label>
+                    <input type="text" name="industry" value="{{industry}}" />
+
+                    <label>Location</label>
+                    <input type="text" name="location" value="{{companyLocation}}" />
+
+                    <label>Description</label>
+                    <textarea name="description" rows="4">{{companyDescription}}</textarea>
+
+                    <label>Created At</label>
+                    <input type="text" value="{{createdAt}}" disabled />
+
+                    <button class="primary" type="submit">Update Info</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+    //This code is when you press different options in dashboard it takes u ther, pls modify according to ur liking and simplicity
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('.content-section');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                const sectionToShow = link.getAttribute('data-section');
+                sections.forEach(sec => sec.classList.remove('active'));
+                document.getElementById(sectionToShow).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

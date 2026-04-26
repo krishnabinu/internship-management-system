@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login | Next Hire</title>
+    <link rel="stylesheet" href="style-Admin-Login.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo-nh.png" alt="Logo" />
+            <span>Admin Portal</span>
+        </div>
+        <div class="nav-links">
+            <a href="Main-Page.html" target="_blank">Home</a>
+            <a href="About-Us.html">About Us</a>
+            <a href="Contact.html">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Background and Form -->
+    <div class="hero-wrapper">
+        <div class="form-container">
+            <h2>Admin Login</h2>
+            <form id="loginForm" method="POST" action="/api/student/login">
+                <input type="email" name="email" placeholder="Email" required />
+                <div class="input-wrapper">
+                    <input type="password" name="password" id="loginPassword" placeholder="Password" required />
+                    <span class="eye-icon" onclick="togglePassword('loginPassword', this)">👁️</span>
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+            <p class="form-footer">
+                Don't have an account? <a href="Admin-Sign-Up.html">Sign up</a>
+            </p>
+        </div>
+    </div>
+    <script>
+        function togglePassword(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "Hide";
+            } else {
+                input.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/student/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Login successful!');
+
+                    // Store JWT token in localStorage (optional)
+                    localStorage.setItem('token', data.token);
+
+                    // Redirect to dashboard or any page you want
+                    window.location.href = '/student/dashboard';
+                } else {
+                    alert(data.error || 'Login failed, please try again.');
+                }
+            } catch (error) {
+                alert('Network error, please try again later.');
+                console.error(error);
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault(); // stop the form from reloading the page
+
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+
+            try {
+                const res = await fetch('/api/student/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('Login successful!');
+                    window.location.href = '/student/dashboard';
+                } else {
+                    alert(data.error || 'Invalid credentials');
+                }
+            } catch (err) {
+                alert('Something went wrong. Please try again.');
+                console.error(err);
+            }
+        });
+    </script>
+
+</body>
+</html>

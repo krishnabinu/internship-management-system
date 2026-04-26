@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login | Next Hire</title>
+    <link rel="stylesheet" href="style-user-login.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="logo">
+            <img src="logo-nh.png" alt="Logo" />
+            <span>User Portal</span>
+        </div>
+        <div class="nav-links">
+            <a href="Main-Page.html" target="_blank">Home</a>
+            <a href="About-Us.html" target="_blank">About Us</a>
+            <a href="Contact.html" target="_blank">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Background and Form -->
+    <div class="hero-wrapper">
+        <div class="form-container">
+            <h2>User Login</h2>
+            <form id="loginForm" method="POST" action="/api/student/login">
+                <input type="email" name="email" placeholder="Email" required />
+                <div class="input-wrapper">
+                    <input type="password" name="password" id="loginPassword" placeholder="Password" required />
+                    <span class="eye-icon" onclick="togglePassword('loginPassword', this)">👁️</span>
+                </div>
+
+                <button type="submit">Log In</button>
+            </form>
+            <p class="form-footer">
+                Don't have an account? <a href="User-Sign-Up.html">Sign up</a>
+            </p>
+        </div>
+    </div>
+        <script>
+    function togglePassword(id, icon) {
+        const input = document.getElementById(id);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.textContent = "Hide";
+        } else {
+            input.type = "password";
+            icon.textContent = "👁️";
+        }
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault(); // stop form from reloading the page
+
+        const formData = new FormData(this);
+        const email = formData.get('email');
+        const password = formData.get('password');
+
+        try {
+            const res = await fetch('/api/student/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const result = await res.json();
+
+            if (res.ok && result.success) {
+                window.location.href = '/home'; // or whatever your next page is
+            } else {
+                alert('Login failed: ' + (result.message || 'Invalid credentials'));
+            }
+        } catch (err) {
+            alert('Something went wrong. Please try again later.');
+        }
+    });
+</script>
+
+
+</body>
+</html>

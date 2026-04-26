@@ -1,0 +1,103 @@
+﻿/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url('https://img.freepik.com/premium-photo/tech-support-services_1246656-4425.jpg?semt=ais_hybrid&w=740');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #111;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.navbar img {
+    height: 50px;
+}
+
+.nav-links a {
+    margin-left: 20px;
+    font-weight: 500;
+    font-size: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s;
+}
+
+    .nav-links a:hover {
+        color: #2563eb;
+    }
+
+/* Contact Section */
+.content-wrapper {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+    .content-wrapper h1 {
+        color: #2563eb;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+.contact-boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.contact-box {
+    width: 48%;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+    .contact-box h3 {
+        color: #002244;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .contact-box p {
+        font-size: 16px;
+        color: #444;
+        margin-top: 10px;
+    }
+
+.footer {
+    background: #111;
+    color: #eee;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 60px;
+    font-size: 15px;
+}
